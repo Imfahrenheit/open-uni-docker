@@ -1,0 +1,38 @@
+1st task 
+
+djuice18@cloudshell:~ (linux-practice-vm)$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+echo-server         latest              17e96bda206c        13 seconds ago      11.1MB
+strapi/strapi       latest              4eb7a5a74b6f        4 days ago          979MB
+alpine              3.10                965ea09ff2eb        2 weeks ago         5.55MB
+djuice18@cloudshell:~ (linux-practice-vm)$ docker run -d strapi/strapi
+b1033b4e3865914ee62a5ddb545cf35952cad230b9fc8534c1f07c61e8ae98d0
+djuice18@cloudshell:~ (linux-practice-vm)$ docker run -d echo-server
+2a3b2efab13d89dd5ccc5fa95ec091d67fbbb31a7d40201d921c11052297260d
+djuice18@cloudshell:~ (linux-practice-vm)$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+2a3b2efab13d        echo-server         "/bin/sh -c 'tail -f…"   8 seconds ago       Up 7 seconds                            quirky_leavitt
+b1033b4e3865        strapi/strapi       "docker-entrypoint.s…"   21 seconds ago      Up 20 seconds       1337/tcp            nostalgic_agnesi
+djuice18@cloudshell:~ (linux-practice-vm)$ docker run -d --name testAlpine alpine tail -f /dev/null
+Unable to find image 'alpine:latest' locally
+latest: Pulling from library/alpine
+Digest: sha256:e4355b66995c96b4b468159fc5c7e3540fcef961189ca13fee877798649f531a
+Status: Downloaded newer image for alpine:latest
+cc016e1eb55aaaee60099d605c35893dec26f2dc93163e1eccee2db0ac77609c
+djuice18@cloudshell:~ (linux-practice-vm)$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+cc016e1eb55a        alpine              "tail -f /dev/null"      16 seconds ago      Up 14 seconds                           testAlpine
+2a3b2efab13d        echo-server         "/bin/sh -c 'tail -f…"   5 minutes ago       Up 5 minutes                            quirky_leavitt
+b1033b4e3865        strapi/strapi       "docker-entrypoint.s…"   5 minutes ago       Up 5 minutes        1337/tcp            nostalgic_agnesi
+djuice18@cloudshell:~ (linux-practice-vm)$
+
+2nd task 
+
+djuice18@cloudshell:~ (linux-practice-vm)$ docker stop testAlpine
+testAlpine
+djuice18@cloudshell:~ (linux-practice-vm)$ docker stop nostalgic_agnesi
+nostalgic_agnesi
+djuice18@cloudshell:~ (linux-practice-vm)$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+2a3b2efab13d        echo-server         "/bin/sh -c 'tail -f…"   17 minutes ago      Up 17 minutes                           quirky_leavitt
+djuice18@cloudshell:~ (linux-practice-vm)$

@@ -1,0 +1,47 @@
+djuice18@cloudshell:~ (linux-practice-vm)$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                           PORTS               NAMES
+cc016e1eb55a        alpine              "tail -f /dev/null"      About an hour ago   Exited (137) About an hour ago                       testAlpine
+2a3b2efab13d        echo-server         "/bin/sh -c 'tail -f…"   About an hour ago   Up About an hour                                     quirky_leavitt
+b1033b4e3865        strapi/strapi       "docker-entrypoint.s…"   About an hour ago   Exited (137) About an hour ago                       nostalgic_agnesi
+djuice18@cloudshell:~ (linux-practice-vm)$ sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm
+cc016e1eb55a
+b1033b4e3865
+djuice18@cloudshell:~ (linux-practice-vm)$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+echo-server         latest              17e96bda206c        About an hour ago   11.1MB
+strapi/strapi       latest              4eb7a5a74b6f        4 days ago          979MB
+alpine              3.10                965ea09ff2eb        2 weeks ago         5.55MB
+alpine              latest              965ea09ff2eb        2 weeks ago         5.55MB
+djuice18@cloudshell:~ (linux-practice-vm)$ docker images -q |xargs docker rmi
+Untagged: strapi/strapi:latest
+Untagged: strapi/strapi@sha256:6e19f2042ff8a28efc72bb943a2842970bc516a98029c2c37bea6ad005169650
+Deleted: sha256:4eb7a5a74b6fb35ada63186a5067651fd9b447544b79dd3aea49c48654786d02
+Deleted: sha256:ec2fe86c0788286dc33f168b7c3f9fabc18648f9c133651ff124fad35e659158
+Deleted: sha256:f71f7de68ea1336b2f353c5e4be40ef3e58d43ddeec7524fdae330053837e001
+Deleted: sha256:3b0bcfd280a3a6983f32b4205b0c2c588f524755f4aa446de0a674588cceff6c
+Deleted: sha256:7cfef57e53b80c5d9fe92752cba0f9367d586685bc6a518f0baa2a3dd788231e
+Deleted: sha256:44bc0a79f70ecd876fff613eb6f661e44f15f5fc4ba14e92933884ed0f2e697d
+Deleted: sha256:84ab3b137cc2a060363b4a1b4a606615268e014cc8b7f323a54e19797ecb552a
+Deleted: sha256:ac4579423cc747c8d60f7e3610d409c2451bb342f81c34dd07461ca3ccc2568e
+Deleted: sha256:d3817739e44e11fe6ddce9d6f34fe81283f2660a6123536b827f1420af88ab58
+Deleted: sha256:8c6e838124281f8765fddafbfb7c5bc015f0769f718362ade66d1b5b906c8ab7
+Deleted: sha256:3cd9cff53d9c022f5e53afaf401749b06903f2552b0fedb10fb74fc1e29b07aa
+Deleted: sha256:9da20796bb5a214a92bae09420f7bb1422c7e8cb3f8fcd971973535d1e39a874
+Deleted: sha256:97041f29baff775daa9b4f608c11db724fbe406c6478f69721a85df4006ef7c0
+Error response from daemon: conflict: unable to delete 17e96bda206c (cannot be forced) - image is being used by running container 2a3b2efab13d
+Error response from daemon: conflict: unable to delete 965ea09ff2eb (cannot be forced) - image has dependent child images
+Error response from daemon: conflict: unable to delete 965ea09ff2eb (cannot be forced) - image has dependent child images
+ 
+ 
+ #Resolved the conflict with same named images
+ 
+ djuice18@cloudshell:~ (linux-practice-vm)$  docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+2a3b2efab13d        echo-server         "/bin/sh -c 'tail -f…"   2 hours ago         Up 2 hours                              quirky_leavitt
+djuice18@cloudshell:~ (linux-practice-vm)$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+echo-server         latest              17e96bda206c        2 hours ago         11.1MB
+alpine              3.10                965ea09ff2eb        2 weeks ago         5.55MB
+djuice18@cloudshell:~ (linux-practice-vm)$
+
+#These two images are used by the remaining container 2a3b2efab13d (echo-server)

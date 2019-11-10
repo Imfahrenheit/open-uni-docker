@@ -1,0 +1,4 @@
+docker build -t devops-client .
+docker run -p 5000:5000 devops-client
+
+API_URL=http://localhost:8888
