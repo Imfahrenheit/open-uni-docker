@@ -1,0 +1,4 @@
+
+1. touch logs.txt
+
+2 docker run -v $(pwd)/logs.txt:/usr/app/logs.txt -it devopsdockeruh/first_volume_exercise
